@@ -57,7 +57,7 @@ public class Main {
 
 ```xml
         <dependency>
-            <groupId>com.github.jikyo.suji</groupId>
+            <groupId>com.github.jikyo</groupId>
             <artifactId>suji</artifactId>
             <version>0.0.3</version>
         </dependency>
