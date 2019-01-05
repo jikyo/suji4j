@@ -61,6 +61,6 @@ public class Main {
         <dependency>
             <groupId>com.github.jikyo.suji</groupId>
             <artifactId>suji</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.3</version>
         </dependency>
 ```
