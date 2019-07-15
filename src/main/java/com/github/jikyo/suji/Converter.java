@@ -56,4 +56,11 @@ public class Converter {
         return val;
     }
 
+    public static List<Kansuji> kansujis(final String src, final boolean one) {
+        List<Kansuji> val = new ArrayList<>();
+        Converter.values(src).forEach(n ->
+                val.add(new Kansuji(Kansujinizer.kansuji(n.value(), one), n.begin(), n.end()))
+        );
+        return val;
+    }
 }

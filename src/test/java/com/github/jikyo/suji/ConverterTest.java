@@ -117,6 +117,43 @@ public class ConverterTest extends TestCase {
         assertEquals(expect, Converter.values("それは万千十です。"));
     }
 
+    public void testKansujis() {
+        List<Kansuji> expect;
+
+        expect = Collections.singletonList(Kansuji.valueOf("三十", 0, 2));
+        assertEquals(expect, Converter.kansujis("30", false));
+
+        expect = Collections.singletonList(Kansuji.valueOf("零", 0, 1));
+        assertEquals(expect, Converter.kansujis("0", true));
+
+        expect = Collections.singletonList(Kansuji.valueOf("一", 0, 1));
+        assertEquals(expect, Converter.kansujis("1", true));
+
+        expect = Collections.singletonList(Kansuji.valueOf("十", 0, 2));
+        assertEquals(expect, Converter.kansujis("10", false));
+
+        expect = Collections.singletonList(Kansuji.valueOf("一十", 0, 2));
+        assertEquals(expect, Converter.kansujis("10", true));
+
+        expect = Collections.singletonList(Kansuji.valueOf("九十九万九千九百九十九", 0, 6));
+        assertEquals(expect, Converter.kansujis("999999", true));
+
+        expect = Collections.singletonList(Kansuji.valueOf("九十九万九千一百", 0, 6));
+        assertEquals(expect, Converter.kansujis("999100", true));
+
+        expect = Collections.singletonList(Kansuji.valueOf("九十九万九千百", 0, 6));
+        assertEquals(expect, Converter.kansujis("999100", false));
+
+        expect = Collections.singletonList(Kansuji.valueOf("一千万", 0, 6));
+        assertEquals(expect, Converter.kansujis("1,000万", true));
+
+        expect = Collections.singletonList(Kansuji.valueOf("千万", 0, 6));
+        assertEquals(expect, Converter.kansujis("1,000万", false));
+
+        expect = Collections.singletonList(Kansuji.valueOf("二十兆三十万五千十七", 0, 10));
+        assertEquals(expect, Converter.kansujis("20兆30万五千十7円になります。", false));
+    }
+
     public void sample() {
         String src = "１つの価格が二兆30万五千十7円になります。";
         List<Numeral> results = Converter.values(src);
@@ -124,5 +161,14 @@ public class ConverterTest extends TestCase {
         Numeral n = results.get(1);
         System.out.println(n.value()); // 2000000305017
         System.out.println(src.substring(n.begin(), n.end())); // 二兆30万五千十7
+
+        src = "価格は￥10,000,000です。";
+        List<Kansuji> kansujis;
+        kansujis = Converter.kansujis(src, true);
+        System.out.println(kansujis); // [{val: 一千万, begin: 4, end: 14}]
+        System.out.println(kansujis.get(0).value()); // 一千万
+        kansujis = Converter.kansujis(src, false);
+        System.out.println(kansujis); // [{val: 千万, begin: 4, end: 14}]
+        System.out.println(kansujis.get(0).value()); // 千万
     }
 }
