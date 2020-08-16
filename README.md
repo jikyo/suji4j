@@ -1,14 +1,13 @@
 # Suji
 
 `Suji` is a converter library from Japanese number notation to numerical value, and from numerical notation to Japanese Kansuji notation.
+The class, `com.github.jikyo.suji.Converter`, provides such methods, `values` and `kansujis`.
 
+## `values` to convert from Japanese number notation to numerical value
 
-### To convert from Japanese number notation to numerical value:
-
-Japanese number notation can include Kansuji.
 The `String` `１つの価格が二兆30万五千十7円になります。` will be converted to two `BigDecimal`, `1` and `2000000005017`.
 And also, `打率は三割二部五厘です。`  will be a `0.325`.
-The return value is a list of suji `Numeral` objects.
+The return value is a list of suji [Numeral](https://github.com/jikyo/suji4j/blob/master/src/main/java/com/github/jikyo/suji/Numeral.java) objects.
 If the input string has no number notation, `Suji` returns a empty list.
 The Numeral object has three methods: `value()`, `begin()`, and `end()`:
 
@@ -16,8 +15,7 @@ The Numeral object has three methods: `value()`, `begin()`, and `end()`:
 * `begin()`: the begin index (`int`) of the found number notation at the input string.
 * `end()`: the end index (`int`) of the found number notation.
 
-
-### To convert from numeric notation to Japanese Kansuji notation:
+## `kansujis` to convert from numeric notation to Japanese Kansuji notation
 
 The `String` `20兆30万五千十7円になります。` will be converted to the Kansuji string, `二十兆三十万五千十七`.
 The boolean flag one is interpreted as whether to display the first character `一` or not.
@@ -25,7 +23,7 @@ The output of `Converter.kansujis('1000万', true)` will be converted to `一千
 Note that `kansujis` does not support numerical notation after the decimal point.
 If the input string is `32.01`, the output will `三十二`, not `三十二割一厘`.
 
-The return value is a list of suji `Kansuji` objects.
+The return value is a list of suji [Kansuji](https://github.com/jikyo/suji4j/blob/master/src/main/java/com/github/jikyo/suji/Kansuji.java) objects.
 If the input string has no number notation, `Suji` returns a empty list.
 The `Kansuji` object has three methods: `value()`, `begin()`, and `end()`:
 
@@ -33,37 +31,22 @@ The `Kansuji` object has three methods: `value()`, `begin()`, and `end()`:
 * `begin()`: the begin index (`int`) of the found number notation at the input string.
 * `end()`: the end index (`int`) of the found number notation.
 
-
 `Suji` is a one-pass parser.
 That is, `Suji` parse a source text from the head to the end only once.
 
 [日本語](README.ja.md) (For Japanese Documentation)
 
-
-# Requirement
+## Requirement
 
 * `Suji` is pure Java code with no dependencies.
 * Java 8+
 
-
-# Installation
-
-(in preparation)
-
-```bash
-$ git clone https://github.com/jikyo/suji4j.git
-$ cd suji4j
-$ mvn install
-```
-
-
-# Usage
+## Usage
 
 ```java
 import com.github.jikyo.suji.Converter;
 import com.github.jikyo.suji.Kansuji;
 import com.github.jikyo.suji.Numeral;
-
 
 public class Main {
     public static void main(String args[]) {
@@ -86,8 +69,7 @@ public class Main {
 }
 ```
 
-
-# pom.xml
+## pom.xml
 
 ```xml
         <dependency>
