@@ -12,6 +12,7 @@ class Kansujinizer {
 
     private static final String minus = "マイナス";
 
+    @SuppressWarnings("serial")
     private static final Map<BigInteger, String> number = Collections.unmodifiableMap(new HashMap<BigInteger, String>() {{
         put(BigInteger.valueOf(1), "一");
         put(BigInteger.valueOf(2), "二");

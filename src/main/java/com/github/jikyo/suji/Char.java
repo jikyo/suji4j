@@ -7,6 +7,7 @@ import java.util.Map;
 
 class Char {
 
+    @SuppressWarnings("serial")
     private static final Map<Character, BigDecimal> NUMBER = Collections.unmodifiableMap(new HashMap<Character, BigDecimal>() {{
         put('0',  BigDecimal.valueOf(0));
         put('1',  BigDecimal.valueOf(1));
@@ -74,6 +75,7 @@ class Char {
         put('ⅻ', BigDecimal.valueOf(12));
     }} );
 
+    @SuppressWarnings("serial")
     private static final Map<Character, BigDecimal> CARDINAL = Collections.unmodifiableMap(new HashMap<Character, BigDecimal>() {{
         put('十', BigDecimal.valueOf(10));
         put('百', BigDecimal.valueOf(100));
@@ -94,11 +96,13 @@ class Char {
         put('毛', BigDecimal.valueOf(0.0001));
     }} );
 
+    @SuppressWarnings("serial")
     private static final Map<Character, String> DELIMITER = Collections.unmodifiableMap(new HashMap<Character, String>() {{
         put(',',  "Comma");
         //put('、', "Ideographic Comma");
     }} );
 
+    @SuppressWarnings("serial")
     private static final Map<Character, String> DECIMAL = Collections.unmodifiableMap(new HashMap<Character, String>() {{
         put('.', "Full Stop");
         //put('．', "Fullwidth Full Stop");
