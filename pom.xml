@@ -14,7 +14,7 @@
         Suji is a converter library from Japanese number notation to numerical value,
         and from numerical notation to Japanese Kansuji notation.
 
-        To convert from Japanese number notation to numerical value:
+        Converter.values(src) to convert from Japanese number notation to numerical value:
         Japanese number notation can include Kansuji.
         The String "１つの価格が二兆30万五千十7円になります。" will be converted to two BigDecimal, 1 and 2000000005017.
         And also, 打率は三割二部五厘です。 will be a 0.325.
@@ -26,7 +26,7 @@
         begin(): the begin index (int) of the found number notation at the input string.
         end(): the end index (int) of the found number notation.
 
-        To convert from numeric notation to Japanese Kansuji notation:
+        Converter.kansujis(src) to convert from numeric notation to Japanese Kansuji notation:
         The String 20兆30万五千十7円になります。 will be converted to the Kansuji string, 二十兆三十万五千十七.
         The boolean flag one is interpreted as whether to display the first character 一 or not.
         The output of Converter.kansujis('1000万', true) will be converted to 一千万,
@@ -122,8 +122,44 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.5</version>
+                <executions>
+                    <execution>
+                      <id>prepare-agent</id>
+                      <goals>
+                        <goal>prepare-agent</goal>
+                      </goals>
+                    </execution>
+                    <execution>
+                      <id>report</id>
+                      <phase>test</phase>
+                      <goals>
+                        <goal>report</goal>
+                      </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <reportSets>
+              <reportSet>
+                <reports>
+                  <report>report</report>
+                </reports>
+              </reportSet>
+            </reportSets>
+          </plugin>
+        </plugins>
+    </reporting>
 
     <profiles>
         <profile>

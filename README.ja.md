@@ -70,6 +70,15 @@ public class Main {
 }
 ```
 
+## Test
+
+```bash
+# unit test
+$ mvn test
+# coverage
+$ mvn test jacoco:report
+```
+
 ## pom.xml
 
 ```xml

@@ -2,9 +2,26 @@ package com.github.jikyo.suji;
 
 import junit.framework.TestCase;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 
 public class KansujinizerTest extends TestCase {
+
+    public void testConstructor() throws Exception {
+        try {
+            Constructor<Kansujinizer> constructor = Kansujinizer.class.getDeclaredConstructor();
+            assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+            constructor.setAccessible(true);
+            constructor.newInstance();
+            fail("KansujinizerTest.testConstructor(): after newInstance()");
+        } catch (InvocationTargetException e) {
+            assertNotNull("success");
+        } catch (Exception e) {
+            fail("KansujinizerTest.testConstructor(): not InvocationTargetException");
+        }
+    }
 
     public void testKansuji() {
         assertEquals("零", Kansujinizer.kansuji(BigDecimal.valueOf(0), false));

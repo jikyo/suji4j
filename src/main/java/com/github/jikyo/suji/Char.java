@@ -108,6 +108,8 @@ class Char {
         //put('．', "Fullwidth Full Stop");
     }} );
 
+    private Char() { throw new AssertionError(); }
+
     static boolean isDelimiter(final Character c) {
         return Char.DELIMITER.containsKey(c);
     }

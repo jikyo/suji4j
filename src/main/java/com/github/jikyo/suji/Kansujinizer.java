@@ -58,9 +58,6 @@ class Kansujinizer {
         if (Kansujinizer.number.containsKey(v)) {
             return Kansujinizer.number.get(v);
         }
-        if (Kansujinizer.radic.length <= index) {
-            return "";
-        }
 
         BigInteger div = v.divide(Kansujinizer.radic[index]);
         if (div.compareTo(BigInteger.ZERO) == 0) {
