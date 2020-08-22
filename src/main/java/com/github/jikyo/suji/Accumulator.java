@@ -4,13 +4,16 @@ import java.math.BigDecimal;
 
 class Accumulator {
 
+    private static BigDecimal OKU = BigDecimal.valueOf(100000000L);
+
     private boolean inside = false;
     private int beg = -1;
     private int end = -1;
-    private BigDecimal val = BigDecimal.valueOf(0);
-    private BigDecimal valCardinal = BigDecimal.valueOf(0);
+    private BigDecimal val = BigDecimal.ZERO;
+    private BigDecimal valCardinal = BigDecimal.ZERO;
     private BigDecimal lastCardinal = BigDecimal.valueOf(10);
     private BigDecimal base = BigDecimal.valueOf(10);
+    private BigDecimal oku = BigDecimal.ZERO;
 
     boolean inside() {
         return this.inside;
@@ -39,16 +42,26 @@ class Accumulator {
     void attachCardinal(final int index, final BigDecimal cardinal) {
         this.inside = true;
         this.increment(index);
-        if (0 == this.val.compareTo(BigDecimal.ZERO)) {
-            this.val = BigDecimal.valueOf(1);
-        }
+
+        BigDecimal val = (0 == this.val.compareTo(BigDecimal.ZERO))
+            ? BigDecimal.ONE
+            : this.val;
+
         if (this.lastCardinal.compareTo(cardinal) < 0) {
-            this.valCardinal = cardinal.multiply(this.valCardinal.add(this.val));
+            this.valCardinal = (this.val.compareTo(BigDecimal.ZERO) == 0 && this.valCardinal.compareTo(BigDecimal.ZERO) != 0)
+                ? this.valCardinal.multiply(cardinal)
+                : cardinal.multiply(this.valCardinal.add(val));
         } else {
-            this.valCardinal = this.valCardinal.add(cardinal.multiply(this.val));
+            this.valCardinal = this.valCardinal.add(cardinal.multiply(val));
         }
+
+        if (Accumulator.OKU.compareTo(this.valCardinal) <= 0) {
+            this.oku = this.oku.add(this.valCardinal);
+            this.valCardinal = BigDecimal.ZERO;
+        }
+ 
         this.lastCardinal = cardinal;
-        this.val = BigDecimal.valueOf(0);
+        this.val = BigDecimal.ZERO;
     }
 
     void attachNumber(final int index, final BigDecimal number) {
@@ -63,7 +76,7 @@ class Accumulator {
     }
 
     Numeral value() {
-        return Numeral.valueOf(this.val.add(this.valCardinal), this.beg, this.end);
+        return Numeral.valueOf(this.oku.add(this.val.add(this.valCardinal)), this.beg, this.end);
     }
 
     @Override
@@ -75,7 +88,8 @@ class Accumulator {
                 + "\tval: " + String.valueOf(this.val) + "\n"
                 + "\tvalCardinal: " + String.valueOf(this.valCardinal) + "\n"
                 + "\tlastCardinal: " + String.valueOf(this.lastCardinal) + "\n"
-                + "\tbase: " + String.valueOf(this.base) + "\n";
+                + "\tbase: " + String.valueOf(this.base) + "\n"
+                + "\toku: " + String.valueOf(this.oku) + "\n";
     }
 
 }

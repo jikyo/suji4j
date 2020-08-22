@@ -13,7 +13,8 @@ public class AccumulatorTest extends TestCase {
             + "\tval: 0\n"
             + "\tvalCardinal: 0\n"
             + "\tlastCardinal: 10\n"
-            + "\tbase: 10\n";
+            + "\tbase: 10\n"
+            + "\toku: 0\n";
         assertEquals(expected, acc.toString());
     }
 

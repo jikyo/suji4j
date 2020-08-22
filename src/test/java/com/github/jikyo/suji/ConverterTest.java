@@ -130,8 +130,8 @@ public class ConverterTest extends TestCase {
         expect = Collections.singletonList(Numeral.valueOf(BigDecimal.valueOf(604002005), 0, 9));
         assertEquals(expect, Converter.values("6億400万2千5になります。"));
 
-        expect = Collections.singletonList(Numeral.valueOf(BigDecimal.valueOf(11010), 3, 6));
-        assertEquals(expect, Converter.values("それは万千十です。"));
+        expect = Collections.singletonList(Numeral.valueOf(BigDecimal.valueOf(16800000000000L), 0, 6));
+        assertEquals(expect, Converter.values("16兆８千億ドル"));
     }
 
     public void testKansujis() {
